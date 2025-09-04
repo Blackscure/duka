@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<h1>Products</h1>
+<div class="row">
+  {% for product in products %}
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5>{{ product.name }}</h5>
+          <p>{{ product.description|truncatewords:20 }}</p>
+          <p><strong>${{ product.price }}</strong></p>
+
+          <form method="post" action="{% url 'store:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="1" min="1" style="width:80px" class="form-control d-inline-block me-2">
+            <button class="btn btn-primary">Add</button>
+          </form>
+
+          <a href="{% url 'store:product_detail' product.id %}" class="btn btn-link mt-2">Details</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No products available.</p>
+  {% endfor %}
+</div>
+{% endblock %}
