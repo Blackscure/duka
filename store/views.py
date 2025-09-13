@@ -7,7 +7,7 @@ from .cart import Cart
 def product_list(request):
     products = Product.objects.all()
     cart = Cart(request)
-    return render(request, 'store/product_list.html', {
+    return render(request, 'product_list.html', {
         'products': products,
         'cart': cart,
         'cart_quantity': cart.get_total_quantity()
@@ -16,7 +16,7 @@ def product_list(request):
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     cart = Cart(request)
-    return render(request, 'store/product_detail.html', {
+    return render(request, 'product_detail.html', {
         'product': product,
         'cart': cart,
         'cart_quantity': cart.get_total_quantity()
@@ -33,7 +33,7 @@ def add_to_cart(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'store/cart.html', {
+    return render(request, 'cart.html', {
         'cart': cart,
         'cart_quantity': cart.get_total_quantity()
     })
